@@ -162,6 +162,14 @@ function updateWave(path) {
 function onKeyDown(event) {
   // console.log(event.key)
 
+  if (event.key == 'v') {
+    destinations = [];
+    for (var i = 0; i < shapes.length; i++) {
+      shapes[i].remove()
+    }
+
+  }
+
   if (event.key == 'left') {
     for (var i = 0; i < destinations.length; i++) {
       destinations[i].x = 20
