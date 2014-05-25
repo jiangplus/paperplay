@@ -125,17 +125,21 @@ function onFrame(event) {
 
   for(var i = 0; i < shapes.length; i++) {
     var dxdy = destinations[i] - shapes[i].position;
-    // console.log('-----')
-    // console.log(destinations[i])
-    // console.log(shapes[i])
-    // console.log(dxdy)
-    shapes[i].fillColor.hue += 0.2;
-    shapes[i].strokeColor.hue += 0.2;
+    var shape = shapes[i];
+    shape.fillColor.hue += 0.2;
+    shape.strokeColor.hue += 0.2;
 
     if (dxdy.length > 10) {
-      shapes[i].position += dxdy / 20;
+      shape.position += dxdy / 20;
     } else {
       destinations[i] = Point.random() * view.size * [1,0.5]
+    }
+
+    if (path.hitTest(shape.position)) {
+      // console.log('000')
+      shape.opacity = 0.3;
+    } else {
+      shape.opacity = 1;
     }
   }
 }
@@ -158,19 +162,42 @@ function updateWave(path) {
 function onKeyDown(event) {
   // console.log(event.key)
 
+  if (event.key == 'left') {
+    for (var i = 0; i < destinations.length; i++) {
+      destinations[i].x = 20
+    }
+  }
+
+  if (event.key == 'right') {
+    for (var i = 0; i < destinations.length; i++) {
+      destinations[i].x = view.size.width - 20
+    }
+  }
+
+
   if (event.key == 'up') {
-    console.log(default_color)
-    default_color.red += 0.02;
-    if (default_color.red > 1) default_color.red -= 1;
-    if (default_color.red < 0) default_color.red += 1;
-    path.fillColor = default_color;
+    for (var i = 0; i < destinations.length; i++) {
+      destinations[i].y = 20
+    }
+
+    // console.log(default_color)
+    // default_color.red += 0.02;
+    // if (default_color.red > 1) default_color.red -= 1;
+    // if (default_color.red < 0) default_color.red += 1;
+    // path.fillColor = default_color;
   }
 
   if (event.key == 'down') {
-    default_color.red -= 0.02;
-    if (default_color.red > 1) default_color.red -= 1;
-    if (default_color.red < 0) default_color.red += 1;
-    path.fillColor = default_color;  }
+    for (var i = 0; i < destinations.length; i++) {
+      destinations[i].y = view.size.height - 20
+    }
+
+
+    // default_color.red -= 0.02;
+    // if (default_color.red > 1) default_color.red -= 1;
+    // if (default_color.red < 0) default_color.red += 1;
+    // path.fillColor = default_color;  
+  }
 
 
   if (event.key == 'space') {
