@@ -138,8 +138,11 @@ function onFrame(event) {
     if (path.hitTest(shape.position)) {
       // console.log('000')
       shape.opacity = 0.3;
+      if (shape.strokeWidth < 2) shape.remove();
+      if (shape.strokeWidth > 0) shape.strokeWidth -= 0.3;
     } else {
       shape.opacity = 1;
+      if (shape.strokeWidth < 20) shape.strokeWidth += 0.5;
     }
   }
 }
@@ -186,7 +189,6 @@ function onKeyDown(event) {
 
 
   if (event.key == 'up') {
-    path.fillColor.gray += 0.1;
     for (var i = 0; i < destinations.length; i++) {
       destinations[i].y = 20
     }
