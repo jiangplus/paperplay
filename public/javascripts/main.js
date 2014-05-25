@@ -199,8 +199,6 @@ function onKeyDown(event) {
   }
 
   if (event.key == 'down') {
-    console.log(path.fillColor)
-    console.log(path.fillColor.gray)
     for (var i = 0; i < destinations.length; i++) {
       destinations[i].y = view.size.height - 20
     }
