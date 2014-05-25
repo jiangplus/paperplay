@@ -70,17 +70,16 @@ function onResize() {
   size = view.bounds.size * [2, 1];
   path = createPath(0.1);
 
-  shapes.push(new Path.Circle({
-    center: [850, 150],
-    radius: 55,
-    fillColor: 'red',
-    strokeWidth: 10,
-    strokeColor: 'pink'
-  }))
+  // shapes.push(new Path.Circle({
+  //   center: [850, 150],
+  //   radius: 55,
+  //   fillColor: 'red',
+  //   strokeWidth: 10,
+  //   strokeColor: 'pink'
+  // }))
 
   for (var i = 0; i < shapes.length; i++) {
     var dest = Point.random() * view.size * [1,0.5];
-    console.log(dest)
     destinations.push(dest);
   }
 
@@ -130,13 +129,14 @@ function onFrame(event) {
     // console.log(destinations[i])
     // console.log(shapes[i])
     // console.log(dxdy)
+    shapes[i].fillColor.hue += 0.2;
+    shapes[i].strokeColor.hue += 0.2;
 
     if (dxdy.length > 10) {
       shapes[i].position += dxdy / 20;
     } else {
       destinations[i] = Point.random() * view.size * [1,0.5]
     }
-    console.log()
   }
 }
 
@@ -159,6 +159,7 @@ function onKeyDown(event) {
   // console.log(event.key)
 
   if (event.key == 'up') {
+    console.log(default_color)
     default_color.red += 0.02;
     if (default_color.red > 1) default_color.red -= 1;
     if (default_color.red < 0) default_color.red += 1;
@@ -181,7 +182,7 @@ function onKeyDown(event) {
      var origin = Point.random() * view.size;
       shapes.push(new Path.Circle({
         center: origin,
-        radius: 55,
+        radius: 35,
         fillColor: 'red',
         strokeWidth: 10,
         strokeColor: 'pink'
@@ -195,6 +196,18 @@ function onKeyDown(event) {
 
 
 
+// var socket = io.connect('http://localhost');
+// sock = socket;
+// socket.on('connect', function(){
+//   console.log('logged in')
+
+//   socket.on('receive', function(data){
+//     console.log(data);
+//   });
+
+//   socket.on('disconnect', function(){});
+
+// });
 
 
 
