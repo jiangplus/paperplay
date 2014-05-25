@@ -166,8 +166,10 @@ function onKeyDown(event) {
   if (event.key == 'v') {
     for (var i = 0; i < shapes.length; i++) {
       shapes[i].remove()
-      destinations.pop()
     }
+    shapes = []
+    destinations = []
+
   }
 
   if (event.key == 'left') {
