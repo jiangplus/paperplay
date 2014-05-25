@@ -163,14 +163,6 @@ function onKeyDown(event) {
   // console.log(event.key)
 
 
-  if (event.key == 'v') {
-    for (var i = 0; i < shapes.length; i++) {
-      shapes[i].remove()
-    }
-    shapes = []
-    destinations = []
-
-  }
 
   if (event.key == 'left') {
     for (var i = 0; i < destinations.length; i++) {
@@ -184,8 +176,17 @@ function onKeyDown(event) {
     }
   }
 
+  if (event.key == 'u') {
+    if (path.fillColor.gray < 0.8) path.fillColor.gray += 0.1;
+  }
+
+  if (event.key == 'd') {
+    if (path.fillColor.gray > 0.1) path.fillColor.gray -= 0.1;
+  }
+
 
   if (event.key == 'up') {
+    path.fillColor.gray += 0.1;
     for (var i = 0; i < destinations.length; i++) {
       destinations[i].y = 20
     }
@@ -198,6 +199,8 @@ function onKeyDown(event) {
   }
 
   if (event.key == 'down') {
+    console.log(path.fillColor)
+    console.log(path.fillColor.gray)
     for (var i = 0; i < destinations.length; i++) {
       destinations[i].y = view.size.height - 20
     }
@@ -230,6 +233,16 @@ function onKeyDown(event) {
       destinations.push(dest)
 
   }
+
+  if (event.key == 'v') {
+    for (var i = 0; i < shapes.length; i++) {
+      shapes[i].remove()
+    }
+    shapes = []
+    destinations = []
+  }
+
+
 }
 
 
