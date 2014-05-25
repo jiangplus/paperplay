@@ -167,6 +167,13 @@ function onKeyDown(event) {
     for (var i = 0; i < shapes.length; i++) {
       shapes[i].remove()
     }
+  }
+
+  if (event.key == 'v') {
+    destinations = [];
+    for (var i = 0; i < shapes.length; i++) {
+      shapes[i].remove()
+    }
 
   }
 
