@@ -245,7 +245,8 @@ function onKeyDown(event) {
 
 }
 
-
+var player = new _mu.Player({mode: 'loop'});
+player.reset().add("dist/mp3/walking.mp3").play();
 
 // var socket = io.connect('http://localhost');
 // sock = socket;
