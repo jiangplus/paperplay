@@ -1,6 +1,4 @@
 
-//End screenadded
-
 var values = {
   friction: 0.8,
   timeStep: 0.01,
@@ -67,9 +65,8 @@ function createPath(strength) {
 }
 
 function onResize() {
-  if (path){
+  if (path)
     path.remove();
-  }
   size = view.bounds.size * [2, 1];
   path = createPath(0.1);
 
@@ -122,69 +119,9 @@ function onMouseMove(event) {
 
 
 
-var rectangle = new Path.Rectangle({
-  point: view.center-[400,200],
-    size: [800, 400],
-    strokeColor: 'white',
-  opacity: 0,
-  
-});
-
-var text = new PointText(view.center-[0,80]);
-text.justification = 'center';
-text.fillColor = 'grey';
-text.content = 'Wave Wins!';
-text.scale(15.0);
-text.opacity = 0;
-
-var text2 = new PointText(view.center-[0,80]);
-text2.justification = 'center';
-text2.fillColor = 'pink';
-text2.content = 'Ball Wins!';
-text2.scale(15.0);
-text2.opacity = 0;
-
-function displayEndScreen(){
-  rectangle.opacity = 0.2;
-  text.opacity = 1;
-}
-
-function displayEndScreen2(){
-  text2.opacity = 1;
-}
-
-function hideEndScreen(){
-  rectangle.opacity = 0;
-  text.opacity = 0;
-}
-
-function hideEndScreen2(){
-  text2.opacity = 0;
-}
-  
-var playing = false;
-var shapeNum = 0;
-var fullNum = 0;
 
 function onFrame(event) {
   updateWave(path);
-  if (shapes.length > 0){
-    for (var i = 0; i<shapes.length; i++){
-      if(shapes[i].strokeWidth >19){
-        fullNum++;
-      }
-    }
-  }
-  if(fullNum == shapes.length && fullNum != 0){
-    displayEndScreen2();
-  }
-    
-  if (playing == true){
-    if (shapeNum == 0){
-      playing == false;
-      displayEndScreen();
-    }
-  }   
 
   for(var i = 0; i < shapes.length; i++) {
     var dxdy = destinations[i] - shapes[i].position;
@@ -201,15 +138,11 @@ function onFrame(event) {
     if (path.hitTest(shape.position)) {
       // console.log('000')
       shape.opacity = 0.3;
-    if (shape.strokeWidth < 2) {
-      shape.remove();      
-      if (shapeNum > 0){
-        shapeNum = shapeNum - 1;}
-    }
-      if (shape.strokeWidth > 0) shape.strokeWidth -= 0.1;
+      if (shape.strokeWidth < 2) shape.remove();
+      if (shape.strokeWidth > 0) shape.strokeWidth -= 0.3;
     } else {
       shape.opacity = 1;
-      if (shape.strokeWidth < 20) shape.strokeWidth += 0.2;
+      if (shape.strokeWidth < 20) shape.strokeWidth += 0.5;
     }
   }
 }
@@ -286,14 +219,13 @@ function onKeyDown(event) {
   }
 
   if (event.key == 'x' && shapes.length < 20) {
-  shapeNum++;
-  playing = true; 
-     var origin = Point.random() * view.size * [1,0.5];
+
+     var origin = Point.random() * view.size;
       shapes.push(new Path.Circle({
         center: origin,
         radius: 35,
         fillColor: 'red',
-        strokeWidth: 3,
+        strokeWidth: 10,
         strokeColor: 'pink'
       }))
 
@@ -301,34 +233,20 @@ function onKeyDown(event) {
       destinations.push(dest)
 
   }
-  
-  if (event.key == 'r'){
-    for (var i = 0; i < shapes.length; i++) {
-      shapes[i].remove()
-    }
-    fullNum = 0;
-    shapes = [];
-    destinations =[];
-    playing = false;
-    hideEndScreen()
-    hideEndScreen2()
-    
-  }
 
   if (event.key == 'v') {
-  playing = false;
     for (var i = 0; i < shapes.length; i++) {
       shapes[i].remove()
-    
     }
-    shapes = [];
-    destinations = [];
+    shapes = []
+    destinations = []
   }
 
 
 }
 
-
+var player = new _mu.Player({mode: 'loop'});
+player.reset().add("dist/mp3/walking.mp3").play();
 
 // var socket = io.connect('http://localhost');
 // sock = socket;
@@ -342,3 +260,7 @@ function onKeyDown(event) {
 //   socket.on('disconnect', function(){});
 
 // });
+
+
+
+
